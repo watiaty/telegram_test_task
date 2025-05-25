@@ -9,25 +9,28 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
   const initData = Telegram.WebApp.initData;
-  const user = Telegram.WebApp.initDataUnsafe.user;
 
   // отправь initData на свой сервер
   fetch(`/api/auth?initData=${encodeURIComponent(initData)}`)
   .then(response => response.json())
   .then(data => {
-    document.getElementById("username").textContent = data.firstName;
+    document.getElementById("id").textContent = data.id;
+    document.getElementById("username").textContent = data.username;
+    document.getElementById("first_name").textContent = data.first_name;
+    document.getElementById("last_name").textContent = data.last_name;
+    document.getElementById("photo_url").src = data.photo_url;
   });
 </script>
 <div class="max-w-md mx-auto bg-white shadow-xl rounded-2xl p-6 mt-10">
   <h1 class="text-2xl font-bold mb-4 text-center">Добро пожаловать!</h1>
 
-  <!--  <div class="space-y-2">-->
-  <!--    <p><strong>ID:</strong> <span th:text="${user.id}">id</span></p>-->
-  <!--    <p><strong>Имя:</strong> <span th:text="${user.firstName}">имя</span></p>-->
-  <!--    <p><strong>Фамилия:</strong> <span th:text="${user.lastName}">фамилия</span></p>-->
-  <!--    <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>-->
-  <!--    <p><strong>Последний визит:</strong> <span th:text="${#dates.format(user.lastSeen, 'dd.MM.yyyy HH:mm')}">время</span></p>-->
-  <!--  </div>-->
+    <div class="space-y-2">
+      <p><strong>ID:</strong> <span id="id">id</span></p>
+      <p><strong>Имя:</strong> <span id="first_name">имя</span></p>
+      <p><strong>Фамилия:</strong> <span id="last_name">фамилия</span></p>
+      <p><strong>Username:</strong> <span id="username">username</span></p>
+      <img id="photo_url" src="" alt="photo"/>
+    </div>
 
 </div>
 </body>
