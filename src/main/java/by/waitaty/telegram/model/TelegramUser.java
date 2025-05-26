@@ -17,18 +17,16 @@ public class TelegramUser {
     @Id
     private long id;
 
-    private String first_name;
+    private String firstName;
 
-    private String last_name;
+    private String lastName;
 
     private String username;
 
-    private String language_code;
+    private String languageCode;
 
-    private boolean allows_write_to_pm;
+    private boolean allowsWriteToPm;
 
-    private String photo_url;
-
-    private Long loginCount = 0L;
+    private String photoUrl;
 
 }

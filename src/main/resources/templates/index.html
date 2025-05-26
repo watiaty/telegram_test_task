@@ -16,9 +16,9 @@
   .then(data => {
     document.getElementById("id").textContent = data.id;
     document.getElementById("username").textContent = data.username;
-    document.getElementById("first_name").textContent = data.first_name;
-    document.getElementById("last_name").textContent = data.last_name;
-    document.getElementById("photo_url").src = data.photo_url;
+    document.getElementById("firstName").textContent = data.first_name;
+    document.getElementById("lastName").textContent = data.last_name;
+    document.getElementById("photoUrl").src = data.photo_url;
   });
 </script>
 <div class="max-w-md mx-auto bg-white shadow-xl rounded-2xl p-6 mt-10">
@@ -26,10 +26,10 @@
 
     <div class="space-y-2">
       <p><strong>ID:</strong> <span id="id">id</span></p>
-      <p><strong>Имя:</strong> <span id="first_name">имя</span></p>
-      <p><strong>Фамилия:</strong> <span id="last_name">фамилия</span></p>
+      <p><strong>Имя:</strong> <span id="firstName">имя</span></p>
+      <p><strong>Фамилия:</strong> <span id="lastName">фамилия</span></p>
       <p><strong>Username:</strong> <span id="username">username</span></p>
-      <img id="photo_url" src="" alt="photo"/>
+      <img id="photoUrl" src="" alt="photo"/>
     </div>
 
 </div>

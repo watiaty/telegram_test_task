@@ -19,3 +19,7 @@ spring:
 
   jpa:
     open-in-view: false
+
+telegram:
+  token: ${TELEGRAM_TOKEN}
+  name: telegram_test_api

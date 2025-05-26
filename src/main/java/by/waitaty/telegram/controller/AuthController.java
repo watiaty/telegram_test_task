@@ -16,6 +16,7 @@ public class AuthController {
 
     @GetMapping("/api/auth")
     public TelegramUserResponseDto auth(@RequestParam String initData) {
+
         return userService.updateOrSave(initData);
     }
 
