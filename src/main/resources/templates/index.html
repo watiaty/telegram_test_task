@@ -1,41 +1,49 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <link href="./output.css" rel="stylesheet">
-
   <title>Telegram WebApp</title>
+  <link href="/output.css" rel="stylesheet">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 
 <body class="bg-gray-100 text-gray-900 font-sans p-4">
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-  const initData = Telegram.WebApp.initData;
 
-  // отправь initData на свой сервер
-  fetch(`/api/auth?initData=${encodeURIComponent(initData)}`)
-  .then(response => response.json())
-  .then(data => {
-    document.getElementById("id").textContent = data.id;
-    document.getElementById("username").textContent = data.username;
-    document.getElementById("firstName").textContent = data.first_name;
-    document.getElementById("lastName").textContent = data.last_name;
-    document.getElementById("photoUrl").src = data.photo_url;
-  });
-</script>
 <div class="max-w-md mx-auto bg-white shadow-xl rounded-2xl p-6 mt-10">
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
 
-    <div class="space-y-2">
-      <p><strong>ID:</strong> <span id="id">id</span></p>
-      <p><strong>Имя:</strong> <span id="firstName">имя</span></p>
-      <p><strong>Фамилия:</strong> <span id="lastName">фамилия</span></p>
-      <p><strong>Username:</strong> <span id="username">username</span></p>
-      <img id="photoUrl" src="" alt="photo"/>
-    </div>
+  <div class="space-y-2">
+    <p><strong>ID:</strong> <span id="id" th:text="${user != null} ? ${user.id} : '...'">id</span></p>
+    <p><strong>Имя:</strong> <span id="firstName" th:text="${user != null} ? ${user.firstName} : '...'">имя</span></p>
+    <p><strong>Фамилия:</strong> <span id="lastName" th:text="${user != null} ? ${user.lastName} : '...'">фамилия</span></p>
+    <p><strong>Username:</strong> <span id="username" th:text="${user != null} ? ${user.username} : '...'">username</span></p>
+    <img id="photoUrl" th:if="${user != null}" th:src="${user.photoUrl}" class="rounded-full w-24 h-24" alt="photo"/>
+  </div>
 
 </div>
+
+<script>
+  const userExists = false;
+
+  if (!userExists) {
+    const initData = Telegram.WebApp.initData;
+    if (initData) {
+      fetch(`/api/auth?initData=${encodeURIComponent(initData)}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("id").textContent = data.id;
+        document.getElementById("firstName").textContent = data.first_name;
+        document.getElementById("lastName").textContent = data.last_name;
+        document.getElementById("username").textContent = data.username;
+
+        const photo = document.getElementById("photoUrl");
+        if (photo) {
+          photo.src = data.photo_url;
+          photo.classList.remove("hidden");
+        }
+      });
+    }
+  }
+</script>
+
 </body>
 </html>
