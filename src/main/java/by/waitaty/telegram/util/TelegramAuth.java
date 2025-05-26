@@ -14,7 +14,7 @@ import org.apache.commons.codec.digest.HmacUtils;
 @UtilityClass
 public class TelegramAuth {
 
-    public static String getValidatedData(String telegramInitData, String botToken) {
+    public static String getValidatedData(String telegramInitData, String botToken, Long tokenFreshTime) {
         Pair<String, String> result = parseInitData(telegramInitData);
         String hash = result.getFirst();
         String initData = result.getSecond();
@@ -26,7 +26,18 @@ public class TelegramAuth {
         }
 
         Map<String, String> initDataMap = parseQueryString(telegramInitData);
+        long authDate = Long.parseLong(initDataMap.get("auth_date"));
+
+        if (!isFresh(authDate, tokenFreshTime)) {
+            throw new InvalidInitDataException("Данные устарели");
+        }
+
         return initDataMap.get("user");
+    }
+
+    private static boolean isFresh(long authDate, Long tokenFreshTime) {
+        long now = System.currentTimeMillis() / 1000;
+        return (now - authDate) < (60 * tokenFreshTime);
     }
 
     private static Pair<String, String> parseInitData(String telegramInitData) {

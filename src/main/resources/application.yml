@@ -23,3 +23,4 @@ spring:
 telegram:
   token: ${TELEGRAM_TOKEN}
   name: telegram_test_api
+  token-fresh-time: 10

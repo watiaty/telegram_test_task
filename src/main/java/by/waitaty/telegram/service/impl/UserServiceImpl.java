@@ -26,7 +26,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public TelegramUserResponseDto updateOrSave(String initData) {
-        String userJson = TelegramAuth.getValidatedData(initData, telegramProperties.getToken());
+        String userJson = TelegramAuth.getValidatedData(initData, telegramProperties.getToken(),
+            telegramProperties.getTokenFreshTime());
 
         TelegramUser user = parseUserJson(userJson);
 
