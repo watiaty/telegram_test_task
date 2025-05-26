@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - include:
+      file: users.sql
+      relativeToChangelogFile: true
+
+  - changeSet:
+      id: 01.000.01
+      author: Yauheni Haikou
+      logicalFilePath: 01.000.01/db.changelog.yaml
+      changes:
+        - tagDatabase:
+            tag: 01.000.01

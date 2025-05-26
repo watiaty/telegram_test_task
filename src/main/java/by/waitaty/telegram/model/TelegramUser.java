@@ -25,8 +25,6 @@ public class TelegramUser {
 
     private String languageCode;
 
-    private boolean allowsWriteToPm;
-
     private String photoUrl;
 
 }
